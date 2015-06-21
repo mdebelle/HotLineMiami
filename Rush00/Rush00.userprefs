@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../../../../../USB DISK/IAEnemy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AI/AIEnemy.cs">
     <Files>
-      <File FileName="Assets/Scripts/AI/AIEnemy.cs" Line="16" Column="56" />
+      <File FileName="Assets/Scripts/AI/AIEnemy.cs" Line="55" Column="5" />
       <File FileName="Assets/Scripts/AI/AIFollower.cs" Line="22" Column="61" />
-      <File FileName="../../../../../../../../../USB DISK/IAEnemy.cs" Line="21" Column="1" />
+      <File FileName="../../../../../../../../../USB DISK/IAEnemy.cs" Line="182" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

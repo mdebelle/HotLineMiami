@@ -5,7 +5,6 @@ using System.Collections;
 public class AIFollower : MonoBehaviour {
 
 	protected NavMeshAgent agent;
-	[SerializeField]private BulletScript bullet;
 	[SerializeField]private Transform spwan;
 
 	public Transform target;
@@ -19,6 +18,6 @@ public class AIFollower : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		Instantiate (bullet, spwan.position, Quaternion.identity);
+//		Instantiate (bullet, spwan.position, Quaternion.identity);
 	}
 }

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class BulletScripts : MonoBehaviour {
 
-
 	public Vector3			direction;
 //	public float 	rot;
 //	public bool 	shoot;
@@ -31,7 +30,7 @@ public class BulletScripts : MonoBehaviour {
 		transform.Translate( direction * Time.deltaTime * SpeedBullet);
 	}
 	
-	void OnCollisionEnter2D(Collision other) {
+	void OnCollisionEnter2D(Collision2D other) {
 		Destroy(gameObject);
 	}
 }

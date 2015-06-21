@@ -25,13 +25,13 @@ public class PlayerScripts : MonoBehaviour {
 
 	#region triggercollision DropWeapon
 
-	void OnTriggerEnter2D (Collider2D coll) {
+	void OnTriggerEnter (Collider coll) {
 		if (coll.gameObject.tag == "Weapon") {
 			Debug.Log ("Catchable gun");
 		}
 	}
 
-	void OnTriggerStay2D (Collider2D coll) {
+	void OnTriggerStay (Collider coll) {
 		if (coll.gameObject.tag == "Weapon" && equiped == false) {
 			if (Input.GetKeyDown (KeyCode.E)) {
 				coll.gameObject.SetActive(false);
@@ -50,7 +50,7 @@ public class PlayerScripts : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit2D (Collider2D coll) {
+	void OnTriggerExit (Collider coll) {
 		if (coll.gameObject.tag == "Weapon") {
 			Debug.Log ("UnCatchable gun");
 		}
@@ -114,18 +114,24 @@ public class PlayerScripts : MonoBehaviour {
 		if (Input.GetKey ("d")) {
 			transform.Translate(Vector3.right * Time.deltaTime * 5);
 		}
-		
+
+//		Debug.Log (bodyrotation.transform.rotation);
+
 		v3Pos = Camera.main.WorldToScreenPoint(bodyrotation.transform.position);
 		v3Pos = Input.mousePosition - v3Pos;
+//		Debug.Log ("v3Pos" + v3Pos);
 		fAngle = Mathf.Atan2 (v3Pos.y, v3Pos.x)* Mathf.Rad2Deg;
 		if (fAngle < -90.0f) fAngle += 360.0f;
+	
+//		Debug.Log (fAngle);
 
 		if (bodyrotation.transform.localRotation.z <= 270f && bodyrotation.transform.localRotation.z >= -90f) {
-			bodyrotation.transform.localEulerAngles = new Vector3 (0f, 0f, fAngle - 90f);
+			bodyrotation.transform.localEulerAngles = new Vector3 ( 0f, 0f, fAngle - 90f);
 		}
 
 		cam.transform.position = transform.position;
-		cam.transform.position += new Vector3 (0f, 0f, -10f);
+
+		cam.transform.position += new Vector3 (0f, -transform.position.y, 0f);
 
 	}
 

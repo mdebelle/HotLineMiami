@@ -56,7 +56,7 @@ public class AIEnemy : MonoBehaviour {
 	#endregion
 
 	#region Enemy
-	void OnTriggerEnter2D(Collider2D other) {
+	void OnTriggerEnter(Collider other) {
 		print (other.name);
 		if (other.tag == "Player") {
 			transform.GetComponent<AIFollower> ().enabled = true;
@@ -70,7 +70,7 @@ public class AIEnemy : MonoBehaviour {
 		transform.GetComponent<NavMeshAgent> ().enabled = false;
 	}
 
-	void OnTriggerExit2D(Collider2D other) {
+	void OnTriggerExit(Collider other) {
 		if (other.tag == "Player") {
 			StartCoroutine("WaitToStop");
 		}
