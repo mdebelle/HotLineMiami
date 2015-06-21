@@ -2,59 +2,78 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class AIEnemy : AIFollower {
+public class AIEnemy : MonoBehaviour {
 
-	private float targetDistance = 10;
-	private bool isAttaking=false;
-	private Vector3 lastVisiblePosition = Vector3.zero;
-	private float minimalDistanceStandard = 3f;
-	private float minimalDistance = 3f;
-	
-//	public GameObject projectile;
-//	public Transform spawnPoint;
-	
-	public List<Transform>Waypoints;
+	#region WayPoints
+	[SerializeField]private List<Transform>Waypoints;
 	private int currentWayPoint=0;
 	private bool waypointModus=true;
 
-
-	void FindTarget() {
-		RaycastHit hit;
-		Ray ray=new Ray();
-		ray.origin=transform.position;
-		ray.direction=target.position - transform.position ;
-		
-		isAttaking=false;
-		if (Physics.Raycast(ray,out hit,targetDistance))
-		{
-			if (hit.collider.gameObject.transform==target)
-			{
-				isAttaking=true ;
-				lastVisiblePosition=target.position;
-				waypointModus=false;
-				ClearWaypoints();
-				currentWayPoint=0;
-				print("target found");
+	/*void Update() {
+		if (!waypointModus) {
+			if (lastVisiblePosition != Vector3.zero) {
+				RotateTo (lastVisiblePosition);
+				walk (lastVisiblePosition);
+				if (CharacterAnimationState == AnimateState.idle && !isAttaking) {
+					waypointModus = true;
+				}
+			} else {
+				StopMoving ();
 			}
-		}
-		if (isAttaking)
-		{
-			minimalDistance = minimalDistanceStandard;
-		}
-		else
-		{
-			minimalDistance=0.2f;
+		} else {
+			if (Waypoints.Count == 0) {
+				SetDynamicWayPoints ();
+			}
+			RotateTo (Waypoints [currentWayPoint].position);
+			WaypointWalk ();
 		}
 	}
 
+	void SetDynamicWayPoints()
+	{
+		GameObject firstCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		firstCube.name="xd1";
+		Destroy (firstCube.collider);
+		//firstCube.renderer.enabled=false;
+		firstCube.transform.position=transform.position;
+		Waypoints.Add(firstCube.transform);
+		
+		GameObject secondCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		secondCube.name="xd2";
+		Destroy (secondCube.collider);
+		//secondCube.renderer.enabled=false;
+		Vector3 pos2=transform.TransformPoint(Vector3.forward*(-4));
+		secondCube.transform.position=pos2;
+		Waypoints.Add(secondCube.transform);
+	}
+	
 	void ClearWaypoints() 
 	{
 		foreach (Transform tf in Waypoints)
-			Destroy(tf.gameObject);
+		{Destroy(tf.gameObject);}
 		Waypoints.Clear();
+	}*/
+	#endregion
+
+	#region Enemy
+	void OnTriggerEnter2D(Collider2D other) {
+		print (other.name);
+		if (other.tag == "Player") {
+			transform.GetComponent<AIFollower> ().enabled = true;
+			transform.GetComponent<NavMeshAgent> ().enabled = true;
+		}
 	}
 
-	protected void Update() {
-		FindTarget ();
+	IEnumerator WaitToStop () {
+		yield return new WaitForSeconds (5f);
+		transform.GetComponent<AIFollower> ().enabled = false;
+		transform.GetComponent<NavMeshAgent> ().enabled = false;
 	}
+
+	void OnTriggerExit2D(Collider2D other) {
+		if (other.tag == "Player") {
+			StartCoroutine("WaitToStop");
+		}
+	}
+	#endregion
 }
