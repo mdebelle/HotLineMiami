@@ -11,6 +11,8 @@ public class BulletScripts : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision other) {
+		if (other.gameObject.tag == "en")
+			Destroy(gameObject);
 		Destroy(gameObject);
 	}
 }

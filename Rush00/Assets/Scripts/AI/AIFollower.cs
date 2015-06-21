@@ -6,6 +6,7 @@ public class AIFollower : MonoBehaviour {
 
 	protected NavMeshAgent agent;
 	[SerializeField]private Transform spwan;
+	[SerializeField]private GameObject bullet;
 
 	public Transform target;
 

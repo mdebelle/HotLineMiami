@@ -32,6 +32,7 @@ public class PlayerScripts : MonoBehaviour {
 
 	void OnTriggerStay (Collider coll) {
 		if (coll.gameObject.tag == "Weapon" && equiped == false) {
+			print("sad");
 			if (Input.GetKeyDown (KeyCode.E)) {
 				coll.gameObject.SetActive(false);
 				equiped = true;
