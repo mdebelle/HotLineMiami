@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{BF1485B3-57A0-1E0F-94C3-FB0069724664}</ProjectGuid>
+	<ProjectGuid>{4A3F134E-517F-CCD6-FF8E-C8C2F67AEEE5}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,17 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AI\AIEnemy.cs" />
-     <Compile Include="Assets\Scripts\AI\AIFollower.cs" />
-     <Compile Include="Assets\Scripts\EnemyScripts.cs" />
-     <Compile Include="Assets\Scripts\GunsScripts.cs" />
-     <Compile Include="Assets\Scripts\MapScripts.cs" />
-     <Compile Include="Assets\Scripts\PlayerScripts.cs" />
-     <Compile Include="Assets\Scripts\TitleScreen\ButtonScript.cs" />
-     <Compile Include="Assets\Scripts\TitleScreen\EiffelTour.cs" />
-     <Compile Include="Assets\Scripts\TitleScreen\ScaleSpriteScreen.cs" />
-     <Compile Include="Assets\Scripts\TitleScreen\TextEffect.cs" />
-     <Compile Include="Assets\Scripts\TitleScripts.cs" />
+     <Compile Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\Scripts\ThirdPersonCharacter.cs" />
      <None Include="Assets\Fonts\friday13\Font License.txt" />
      <None Include="Assets\Fonts\d3digitalism\Read Me.txt" />
      <None Include="Assets\Fonts\shoguns_clan\README.txt" />
