@@ -7,7 +7,7 @@ public class BulletScripts : MonoBehaviour {
 	public float			SpeedBullet = 10f;
 
 	void Update () {
-		transform.Translate( direction * Time.deltaTime * SpeedBullet);
+		transform.Translate( new Vector3(direction.x, direction.z, 0) * Time.deltaTime * SpeedBullet);
 	}
 
 	void OnCollisionEnter(Collision other) {
