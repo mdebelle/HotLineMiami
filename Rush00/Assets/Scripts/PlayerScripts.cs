@@ -9,8 +9,12 @@ public class PlayerScripts : MonoBehaviour {
 	public GameObject bodyrotation; 
 	public Camera cam;
 	bool equiped = false;
+	bool life = true;
 
 	public List<GunsScripts> liste = new List<GunsScripts>();
+
+
+	#region triggercollision DropWeapon
 
 	void OnTriggerEnter2D (Collider2D coll) {
 		if (coll.gameObject.tag == "Weapon") {
@@ -27,6 +31,10 @@ public class PlayerScripts : MonoBehaviour {
 				Debug.Log ("Catch gun");
 			}
 		}
+		if (coll.gameObject.tag == "Bullet") {
+			life = false;
+		}
+
 	}
 
 	void OnTriggerExit2D (Collider2D coll) {
@@ -36,25 +44,35 @@ public class PlayerScripts : MonoBehaviour {
 
 	}
 
+	void DropWeapon() {
+		for (int i = 0; i < liste.Count; i++) {
+			if (liste [i].isActiveAndEnabled)
+				continue;
+			else {
+				liste [i].transform.position = transform.position;
+				liste [i].transform.position += Vector3.up;
+				liste [i].gameObject.SetActive (true);
+				liste [i].transform.Translate (Vector3.up * Time.deltaTime);
+				equiped = false;
+			}
+		}
+	}
+		
+	#endregion
+
 	void Update () {
 	
 		movePlayer ();
 		if (Input.GetMouseButton (1) && equiped == true) {
-
-			for (int i = 0; i < liste.Count ;i++ ) {
-				if (liste[i].isActiveAndEnabled)
-					continue ;
-				else {
-					liste[i].transform.position = transform.position;
-					liste[i].transform.position += Vector3.up;
-					liste[i].gameObject.SetActive(true);
-					liste[i].transform.Translate(Vector3.up * Time.deltaTime);
-					equiped = false;
-				}
-					
-			}
+			DropWeapon();
 		}
+
+		if (life == false)
+			ResetLevel ();
+
 	}
+
+	#region movePlayer
 
 	void movePlayer () {
 
@@ -84,4 +102,15 @@ public class PlayerScripts : MonoBehaviour {
 		cam.transform.position += new Vector3 (0f, 0f, -10f);
 
 	}
+
+	#endregion
+
+	#region Someone is dead
+
+	void ResetLevel ()
+	{
+
+	}
+
+	#endregion
 }
