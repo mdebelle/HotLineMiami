@@ -11,15 +11,23 @@ public class PlayerScripts : MonoBehaviour {
 	bool equiped = false;
 	bool life = true;
 
-	public List<GunsScripts> liste = new List<GunsScripts>();
+	float fAngle;
 
+	public List<GunsScripts> liste = new List<GunsScripts>();
+	GunsScripts mygun;
+
+	public GameObject bullets;
+	public GameObject spwan;
+	public float fireRate = 0.02f;
+	private float nextFire;
+
+	Vector3 v3Pos;
 
 	#region triggercollision DropWeapon
 
 	void OnTriggerEnter2D (Collider2D coll) {
 		if (coll.gameObject.tag == "Weapon") {
 			Debug.Log ("Catchable gun");
-			
 		}
 	}
 
@@ -29,19 +37,23 @@ public class PlayerScripts : MonoBehaviour {
 				coll.gameObject.SetActive(false);
 				equiped = true;
 				Debug.Log ("Catch gun");
+				for (int i = 0; i < liste.Count; i++) {
+					if (!liste [i].isActiveAndEnabled) {
+						mygun = liste [i];
+						break;
+					}
+				}
 			}
 		}
 		if (coll.gameObject.tag == "Bullet") {
 			life = false;
 		}
-
 	}
 
 	void OnTriggerExit2D (Collider2D coll) {
 		if (coll.gameObject.tag == "Weapon") {
 			Debug.Log ("UnCatchable gun");
 		}
-
 	}
 
 	void DropWeapon() {
@@ -60,11 +72,25 @@ public class PlayerScripts : MonoBehaviour {
 		
 	#endregion
 
+	void Start () {
+
+	}
+
 	void Update () {
 	
 		movePlayer ();
 		if (Input.GetMouseButton (1) && equiped == true) {
+			Debug.Log ("Drop it");
 			DropWeapon();
+		}
+		if (Input.GetMouseButton (0) && equiped == true && Time.time > nextFire) {
+			nextFire = Time.time + fireRate;
+			GameObject obj = Instantiate (bullets, spwan.transform.position, Quaternion.identity) as GameObject;
+			obj.GetComponent<SpriteRenderer>().enabled = true;
+			obj.AddComponent<BulletScripts>();
+			Debug.Log (v3Pos.normalized);
+			obj.GetComponent<BulletScripts>().direction = v3Pos.normalized;
+				//		audio.Play();
 		}
 
 		if (life == false)
@@ -89,9 +115,9 @@ public class PlayerScripts : MonoBehaviour {
 			transform.Translate(Vector3.right * Time.deltaTime * 5);
 		}
 		
-		Vector3 v3Pos = Camera.main.WorldToScreenPoint(bodyrotation.transform.position);
+		v3Pos = Camera.main.WorldToScreenPoint(bodyrotation.transform.position);
 		v3Pos = Input.mousePosition - v3Pos;
-		float fAngle = Mathf.Atan2 (v3Pos.y, v3Pos.x)* Mathf.Rad2Deg;
+		fAngle = Mathf.Atan2 (v3Pos.y, v3Pos.x)* Mathf.Rad2Deg;
 		if (fAngle < -90.0f) fAngle += 360.0f;
 
 		if (bodyrotation.transform.localRotation.z <= 270f && bodyrotation.transform.localRotation.z >= -90f) {
@@ -109,7 +135,8 @@ public class PlayerScripts : MonoBehaviour {
 
 	void ResetLevel ()
 	{
-
+		if (life == false)
+			Debug.Log ("Tes mort");
 	}
 
 	#endregion
