@@ -25,18 +25,12 @@ public class PlayerScripts : MonoBehaviour {
 
 	#region triggercollision DropWeapon
 
-	void OnTriggerEnter2D (Collider2D coll) {
-		if (coll.gameObject.tag == "Weapon") {
-			Debug.Log ("Catchable gun");
-		}
-	}
-
-	void OnTriggerStay2D (Collider2D coll) {
+	void OnTriggerStay (Collider coll) {
+		Debug.Log ("Collide");
 		if (coll.gameObject.tag == "Weapon" && equiped == false) {
 			if (Input.GetKeyDown (KeyCode.E)) {
 				coll.gameObject.SetActive(false);
 				equiped = true;
-				Debug.Log ("Catch gun");
 				for (int i = 0; i < liste.Count; i++) {
 					if (!liste [i].isActiveAndEnabled) {
 						mygun = liste [i];
@@ -50,21 +44,16 @@ public class PlayerScripts : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit2D (Collider2D coll) {
-		if (coll.gameObject.tag == "Weapon") {
-			Debug.Log ("UnCatchable gun");
-		}
-	}
-
 	void DropWeapon() {
 		for (int i = 0; i < liste.Count; i++) {
 			if (liste [i].isActiveAndEnabled)
 				continue;
 			else {
 				liste [i].transform.position = transform.position;
-				liste [i].transform.position += Vector3.up;
+				liste [i].transform.position += v3Pos.normalized;
 				liste [i].gameObject.SetActive (true);
-				liste [i].transform.Translate (Vector3.up * Time.deltaTime);
+//				liste [i].transform.Translate (Vector3.up * Time.deltaTime);
+				liste [i].transform.Translate( v3Pos.normalized * Time.deltaTime );
 				equiped = false;
 			}
 		}
@@ -80,7 +69,6 @@ public class PlayerScripts : MonoBehaviour {
 	
 		movePlayer ();
 		if (Input.GetMouseButton (1) && equiped == true) {
-			Debug.Log ("Drop it");
 			DropWeapon();
 		}
 		if (Input.GetMouseButton (0) && equiped == true && Time.time > nextFire) {
@@ -136,7 +124,7 @@ public class PlayerScripts : MonoBehaviour {
 	void ResetLevel ()
 	{
 		if (life == false)
-			Debug.Log ("Tes mort");
+			Debug.Log ("T'es mort");
 	}
 
 	#endregion

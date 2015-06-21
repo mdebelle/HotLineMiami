@@ -46,11 +46,17 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AI\AIEnemy.cs" />
+     <Compile Include="Assets\Scripts\AI\AIFollower.cs" />
      <Compile Include="Assets\Scripts\BulletScripts.cs" />
      <Compile Include="Assets\Scripts\EnemyScripts.cs" />
      <Compile Include="Assets\Scripts\GunsScripts.cs" />
      <Compile Include="Assets\Scripts\MapScripts.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts.cs" />
+     <Compile Include="Assets\Scripts\TitleScreen\ButtonScript.cs" />
+     <Compile Include="Assets\Scripts\TitleScreen\EiffelTour.cs" />
+     <Compile Include="Assets\Scripts\TitleScreen\ScaleSpriteScreen.cs" />
+     <Compile Include="Assets\Scripts\TitleScreen\TextEffect.cs" />
      <Compile Include="Assets\Scripts\TitleScripts.cs" />
      <None Include="Assets\Fonts\friday13\Font License.txt" />
      <None Include="Assets\Fonts\d3digitalism\Read Me.txt" />
