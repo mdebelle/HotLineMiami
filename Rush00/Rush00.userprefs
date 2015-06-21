@@ -3,10 +3,11 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BulletScripts.cs">
     <Files>
       <File FileName="Assets/Scripts/TitleScripts.cs" Line="12" Column="22" />
-      <File FileName="Assets/Scripts/PlayerScripts.cs" Line="92" Column="1" />
-      <File FileName="Assets/Scripts/GunsScripts.cs" Line="5" Column="1" />
+      <File FileName="Assets/Scripts/PlayerScripts.cs" Line="58" Column="1" />
+      <File FileName="Assets/Scripts/GunsScripts.cs" Line="13" Column="5" />
       <File FileName="Assets/Scripts/EnemyScripts.cs" Line="5" Column="2" />
-      <File FileName="Assets/Scripts/BulletScripts.cs" Line="28" Column="32" />
+      <File FileName="Assets/Scripts/BulletScripts.cs" Line="12" Column="2" />
+      <File FileName="Assets/Scripts/AI/AIEnemy.cs" Line="8" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
