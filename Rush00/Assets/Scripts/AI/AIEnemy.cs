@@ -6,66 +6,34 @@ public class AIEnemy : MonoBehaviour {
 
 	#region WayPoints
 	[SerializeField]private List<Transform>Waypoints;
-	private int currentWayPoint=0;
-	private bool waypointModus=true;
 
-	/*void Update() {
-		if (!waypointModus) {
-			if (lastVisiblePosition != Vector3.zero) {
-				RotateTo (lastVisiblePosition);
-				walk (lastVisiblePosition);
-				if (CharacterAnimationState == AnimateState.idle && !isAttaking) {
-					waypointModus = true;
-				}
-			} else {
-				StopMoving ();
-			}
-		} else {
-			if (Waypoints.Count == 0) {
-				SetDynamicWayPoints ();
-			}
-			RotateTo (Waypoints [currentWayPoint].position);
-			WaypointWalk ();
-		}
-	}
-
-	void SetDynamicWayPoints()
-	{
-		GameObject firstCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		firstCube.name="xd1";
-		Destroy (firstCube.collider);
-		//firstCube.renderer.enabled=false;
-		firstCube.transform.position=transform.position;
-		Waypoints.Add(firstCube.transform);
-		
-		GameObject secondCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		secondCube.name="xd2";
-		Destroy (secondCube.collider);
-		//secondCube.renderer.enabled=false;
-		Vector3 pos2=transform.TransformPoint(Vector3.forward*(-4));
-		secondCube.transform.position=pos2;
-		Waypoints.Add(secondCube.transform);
+	private Vector3[] direction = new Vector3[2];
+	private float speed = 2f;
+	int id;
+	
+	void Start() {
+		direction[0] = Vector3.forward;
+		direction[1] = Vector3.back;
 	}
 	
-	void ClearWaypoints() 
-	{
-		foreach (Transform tf in Waypoints)
-		{Destroy(tf.gameObject);}
-		Waypoints.Clear();
-	}*/
+	void Update() {
+		transform.Translate (direction[id] * Time.deltaTime * speed);
+	}
 	#endregion
-
+	
 	#region Enemy
 	void OnTriggerEnter(Collider other) {
 		print (other.name);
 		if (other.tag == "Player") {
 			transform.GetComponent<AIFollower> ().enabled = true;
 			transform.GetComponent<NavMeshAgent> ().enabled = true;
+		} else if (other.transform == Waypoints[id]) {
+			id = (id == 1)?0:1;
 		}
 	}
 
 	IEnumerator WaitToStop () {
-		yield return new WaitForSeconds (5f);
+		yield return new WaitForSeconds (10f);
 		transform.GetComponent<AIFollower> ().enabled = false;
 		transform.GetComponent<NavMeshAgent> ().enabled = false;
 	}
