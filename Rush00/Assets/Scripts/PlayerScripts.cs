@@ -1,39 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class PlayerScripts : MonoBehaviour {
 
 
 	public GameObject bodyrotation; 
 	public Camera cam;
+	bool equiped = false;
 
-	GameObject Weapon;
+	public List<GunsScripts> liste = new List<GunsScripts>();
 
-
-	void OnTriggerEnter2D (Collider2D coll)
-	{
+	void OnTriggerEnter2D (Collider2D coll) {
 		if (coll.gameObject.tag == "Weapon") {
-			Debug.Log ("Hihi");
+			Debug.Log ("Catchable gun");
+			
 		}
 	}
 
-	void OnTriggerExit2D (Collider2D coll)
-	{
+	void OnTriggerStay2D (Collider2D coll) {
+		if (coll.gameObject.tag == "Weapon" && equiped == false) {
+			if (Input.GetKeyDown (KeyCode.E)) {
+				coll.gameObject.SetActive(false);
+				equiped = true;
+				Debug.Log ("Catch gun");
+			}
+		}
 	}
 
+	void OnTriggerExit2D (Collider2D coll) {
+		if (coll.gameObject.tag == "Weapon") {
+			Debug.Log ("UnCatchable gun");
+		}
 
-	// Use this for initialization
-	void Start () {
-	
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 	
 		movePlayer ();
+		if (Input.GetMouseButton (1) && equiped == true) {
 
-
-
+			for (int i = 0; i < liste.Count ;i++ ) {
+				if (liste[i].isActiveAndEnabled)
+					continue ;
+				else {
+					liste[i].transform.position = transform.position;
+					liste[i].transform.position += Vector3.up;
+					liste[i].gameObject.SetActive(true);
+					liste[i].transform.Translate(Vector3.up * Time.deltaTime);
+					equiped = false;
+				}
+					
+			}
+		}
 	}
 
 	void movePlayer () {
@@ -41,13 +61,13 @@ public class PlayerScripts : MonoBehaviour {
 		if (Input.GetKey ("a")) {
 			transform.Translate(Vector3.left * Time.deltaTime * 5);
 		}
-		if(Input.GetKey ("s")) {
+		if (Input.GetKey ("s")) {
 			transform.Translate(Vector3.down * Time.deltaTime * 5);
 		}
-		if(Input.GetKey ("w")) {
+		if (Input.GetKey ("w")) {
 			transform.Translate(Vector3.up * Time.deltaTime * 5);
 		}
-		if(Input.GetKey ("d")) {
+		if (Input.GetKey ("d")) {
 			transform.Translate(Vector3.right * Time.deltaTime * 5);
 		}
 		
